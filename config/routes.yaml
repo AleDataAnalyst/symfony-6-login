@@ -1,10 +1,11 @@
 # config/routes.yaml
 
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+# Definición de rutas manejadas por controllers creado por Symfony automáticamente
+# controllers:
+#     resource:
+#         path: ../src/Controller/
+#         namespace: App\Controller
+#     type: attribute
 
 # Ruta para la página de inicio
 app_home:
