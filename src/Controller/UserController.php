@@ -26,22 +26,6 @@ class UserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         return $this->redirectToRoute('app_register');
-        // $user = new User();
-        // $form = $this->createForm(UserType::class, $user);
-        // $form->handleRequest($request);
-
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $entityManager->persist($user);
-        //     $entityManager->flush();
-
-        //     // return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-        //     return $this->redirectToRoute('app_register');
-        // }
-
-        // return $this->render('user/new.html.twig', [
-        //     'user' => $user,
-        //     'form' => $form,
-        // ]);
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
