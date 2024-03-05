@@ -9,7 +9,7 @@
 
 # Ruta para la página de inicio
 app_home:
-    path: /home
+    path: /
     controller: App\Controller\HomeController::index
     methods: GET
     # Puedes agregar más opciones aquí si es necesario
