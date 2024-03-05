@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -37,7 +38,29 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
+            'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/apiregister', name: 'api_register')]
+    public function apiregister(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, JWTTokenManagerInterface $jwtManager): Response
+    {
+        $user = new User();
+        
+        $data = json_decode($request->getContent(), true);
+        $user->setEmail($data['email']);
+        $user->setPassword(
+            $userPasswordHasher->hashPassword(
+                $user,
+                $data['password']
+            )
+        );
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $token = $jwtManager->create($user);
+
+        return $this->json(($token), $status = 200, $headers = ['Access-Control-Allow-Origin'=>'*']);
+
     }
 }
