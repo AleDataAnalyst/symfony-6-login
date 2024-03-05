@@ -25,6 +25,7 @@ class UserController extends AbstractController
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        return $this->redirectToRoute('app_register');
         // $user = new User();
         // $form = $this->createForm(UserType::class, $user);
         // $form->handleRequest($request);
